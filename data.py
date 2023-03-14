@@ -13,3 +13,6 @@ def split_data(dataset):
     test_dataset = dataset.drop(train_dataset.index)
 
     return train_dataset, test_dataset
+
+def standardize(data, data_train):
+    return (data - np.average(data_train))/np.std(data_train)
