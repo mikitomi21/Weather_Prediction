@@ -1,5 +1,5 @@
 1.Pobranie danych z 3 lat (3 katalogi na każdy rok)
 2.Z każdego pliku wyznaczenie miejscowości "Gdańsk"
 3.Wypierdolenie kolumn których nie ma w txt
-4.Nazwanie te kolumny:
+4.Nazwanie tych kolumn:
 [Year, Month, Day, Max_Temp, Min_Temp, Avg_Temp, Sum_Fall, Kind_Of_Fall]
