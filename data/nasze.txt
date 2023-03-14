@@ -1,0 +1,10 @@
+Nazwa stacji                           30
+Rok                                     4
+Miesi¹c                                 2
+Dzieñ                                   2
+Maksymalna temperatura dobowa [°C]      6/1
+Minimalna temperatura dobowa [°C]       6/1
+->Œrednia temperatura dobowa [°C]         8/1
+->Suma dobowa opadów [mm]                 8/1
+Rodzaj opadu  [S/W/ ]                   1
+Wysokoœæ pokrywy œnie¿nej [cm]          5
