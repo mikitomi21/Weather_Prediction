@@ -3,10 +3,8 @@ import numpy as np
 
 #Test of uploading data
 def get_data():
-    df = pd.read_csv('data/k_d_01_2020.csv',encoding = 'unicode_escape')
-    #x_data = df["t8"].to_numpy()
-    #y_data = df["t9"].to_numpy()
-    return df
+    dataset = pd.read_csv("result.csv", encoding = 'unicode_escape')
+    return dataset
 
 def split_data(dataset, frac_set=0.8):
     train_dataset = dataset.sample(frac=frac_set, random_state=0)
