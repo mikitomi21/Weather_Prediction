@@ -3,7 +3,7 @@ import numpy as np
 class Linear_reg:
     def __init__(self):
         #self.theta = [0, 0, 0]
-        self.theta = [0, 0]
+        self.theta = np.array([0,0])
 
 
     def get_theta(self):
@@ -37,24 +37,41 @@ class Linear_reg:
         return f"0 = {self.theta[1]}x + {self.theta[0]}y"
 
 
-class Autoregressive:
-    def __init__(self):
-        pass
-
+class AutoReg:
+    def __init__(self, lag=8):
+        self.lag = lag
+        self.theta = np.array([0,0])
 
     def fit(self, x_train, y_train):
-        p = 10
-        linear_model = Linear_reg()
-        linear_model.fit(x_train, y_train)
-        theta = linear_model.get_theta()
-        x_mat = np.column_stack((np.ones(len(x_train)), x_train))
+        x_train = np.column_stack((np.ones(len(x_train)), x_train))
         
+        X = []
+        for i in range(self.lag, len(x_train)):
+            X.append(x_train[i-self.lag:i])
+        X = np.array(X)
+        
+        y = y_train[self.lag:]
 
-        y_pred = []
-        for i in range(p, len(x_mat)):
-            x_input = x_mat[i-p:i]
-            y_hat = np.dot(theta.T,x_input.T)
-            y_pred.append(y_hat)
-                
+        #TODO problem z mnożeniem macierzy
+
+        X_tra = np.transpose(X, axes=(0, 2, 1))
+        
+        print(np.shape(np.matmul(X_tra, X)))
+        self.theta = np.dot(np.dot(np.linalg.inv(np.dot(X_tra, X)), X_tra), y)
+        
+    
+    def predict(self, x_test):
+        # Dodaj kolumnę z jedynkami do danych testowych
+        x_test = np.column_stack((np.ones(len(x_test)), x_test))
+        
+        # Przygotuj macierz danych dla predykcji
+        X_test = []
+        for i in range(self.lag, len(x_test)):
+            X_test.append(x_test[i-self.lag:i])
+        X_test = np.array(X_test)
+        
+        # Oblicz predykcję na podstawie wyestymowanych parametrów
+        y_pred = X_test.dot(self.theta)
+        
         return y_pred
     
