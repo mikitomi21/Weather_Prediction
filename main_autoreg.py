@@ -18,4 +18,3 @@ y_test = test_data["Avg_Temp"].to_numpy()
 linear = AutoReg()
 linear.fit(x_train, y_train)
 print(linear.theta)
-

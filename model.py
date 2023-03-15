@@ -13,7 +13,9 @@ class Linear_reg:
     def fit(self, x_train, y_train):
         x_mat = np.column_stack((np.ones(len(x_train)),x_train))
         x_mat_tra = x_mat.T
+        print(np.shape(x_mat))
         y_mat = np.reshape(y_train,(y_train.shape[0],1))
+        print(np.shape(y_mat))
         self.theta = np.dot(np.dot(np.linalg.inv(np.dot(x_mat_tra, x_mat)), x_mat_tra), y_mat)
     
 
@@ -43,21 +45,18 @@ class AutoReg:
         self.theta = np.array([0,0])
 
     def fit(self, x_train, y_train):
-        x_train = np.column_stack((np.ones(len(x_train)), x_train))
         
-        X = []
-        for i in range(self.lag, len(x_train)):
-            X.append(x_train[i-self.lag:i])
-        X = np.array(X)
         
-        y = y_train[self.lag:]
-
-        #TODO problem z mnożeniem macierzy
-
-        X_tra = np.transpose(X, axes=(0, 2, 1))
-        
-        print(np.shape(np.matmul(X_tra, X)))
-        self.theta = np.dot(np.dot(np.linalg.inv(np.dot(X_tra, X)), X_tra), y)
+        X = np.array(x_train[len(x_train)-self.lag:len(x_train)])
+        #print(np.shape(X))
+        x_mat = np.column_stack((np.ones(len(X)), X))
+        print(np.shape(x_mat))
+        y = y_train[len(x_train)-self.lag:len(x_train)]
+        #print(np.shape(y))
+        y_mat = np.reshape(y,(y.shape[0],1))
+        print(np.shape(y_mat))
+        print(np.matmul(X.T, X))
+        self.theta = np.dot(np.dot(np.linalg.inv(np.dot(x_mat.T, x_mat)), x_mat.T), y_mat)
         
     
     def predict(self, x_test):
