@@ -13,9 +13,7 @@ class Linear_reg:
     def fit(self, x_train, y_train):
         x_mat = np.column_stack((np.ones(len(x_train)),x_train))
         x_mat_tra = x_mat.T
-        print(np.shape(x_mat))
         y_mat = np.reshape(y_train,(y_train.shape[0],1))
-        print(np.shape(y_mat))
         self.theta = np.dot(np.dot(np.linalg.inv(np.dot(x_mat_tra, x_mat)), x_mat_tra), y_mat)
     
 
@@ -40,14 +38,25 @@ class Linear_reg:
 
 
 class AutoReg:
-    def __init__(self, lag=8):
+    def __init__(self, lag=3):
         self.lag = lag
         self.theta = np.array([0,0])
 
+
+    def get_lag(self):
+        return self.lag
+
+    
+    def get_theta(self):
+        return self.theta
+
+
     def fit(self, x_train, y_train):
-        
-        
-        X = np.array(x_train[len(x_train)-self.lag:len(x_train)])
+        model = Linear_reg()
+        model.fit(x_train, y_train)
+        self.theta = model.get_theta()
+        '''
+         X = np.array(x_train[len(x_train)-self.lag:len(x_train)])
         #print(np.shape(X))
         x_mat = np.column_stack((np.ones(len(X)), X))
         print(np.shape(x_mat))
@@ -57,6 +66,8 @@ class AutoReg:
         print(np.shape(y_mat))
         print(np.matmul(X.T, X))
         self.theta = np.dot(np.dot(np.linalg.inv(np.dot(x_mat.T, x_mat)), x_mat.T), y_mat)
+        '''
+       
         
     
     def predict(self, x_test):
@@ -64,13 +75,9 @@ class AutoReg:
         x_test = np.column_stack((np.ones(len(x_test)), x_test))
         
         # Przygotuj macierz danych dla predykcji
-        X_test = []
-        for i in range(self.lag, len(x_test)):
-            X_test.append(x_test[i-self.lag:i])
-        X_test = np.array(X_test)
         
         # Oblicz predykcję na podstawie wyestymowanych parametrów
-        y_pred = X_test.dot(self.theta)
+        y_pred = x_test.dot(self.theta)
         
         return y_pred
     

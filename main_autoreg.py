@@ -15,6 +15,23 @@ y_train = train_data["Avg_Temp"].to_numpy()
 x_test = test_data["Avg_Temp_Pre_Day"].to_numpy()
 y_test = test_data["Avg_Temp"].to_numpy()
 
-linear = AutoReg()
-linear.fit(x_train, y_train)
-print(linear.theta)
+linear = AutoReg(10)
+#print(linear.theta)
+
+y_pred = []
+x_test_temp = x_test.copy()
+y_test_temp = y_test.copy()
+
+for i in range(366): 
+    linear.fit(x_train[-linear.get_lag():], y_train[-linear.get_lag():])
+    y_pred.append(linear.get_theta()[0])
+    x_train = np.append(x_train, x_test_temp[0])
+    y_train = np.append(y_train, y_test_temp[0])
+    x_test_temp = np.delete(x_test_temp, 0)
+    y_test_temp = np.delete(y_test_temp, 0)
+
+x = np.arange(366)
+plt.plot(x, y_test)
+plt.plot(x, y_pred, color="red")
+plt.show()
+
