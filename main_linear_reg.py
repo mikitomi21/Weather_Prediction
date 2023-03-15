@@ -18,6 +18,7 @@ linear = Linear_reg()
 linear.fit(x_train, y_train)
 print(linear)
 print(linear.mse(x_test, y_test))
+print(linear.mae(x_test, y_test))
 
 x = np.linspace(min(x_test), max(x_test), 100)
 y = float(linear.get_theta()[0]) + float(linear.get_theta()[1]) * x
