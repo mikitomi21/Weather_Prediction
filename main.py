@@ -9,10 +9,10 @@ data = get_data()
 train_data, test_data = split_data(data)
 
 x_train = train_data["Avg_Temp"].to_numpy()
-y_train = train_data["Sum_Fall"].to_numpy()
+y_train = train_data["Avg_Temp_Pre_Day"].to_numpy()
 
 x_test = test_data["Avg_Temp"].to_numpy()
-y_test = test_data["Sum_Fall"].to_numpy()
+y_test = test_data["Avg_Temp_Pre_Day"].to_numpy()
 
 linear = Linear_reg()
 linear.fit(x_train, y_train)
@@ -24,5 +24,5 @@ y = float(linear.get_theta()[0]) + float(linear.get_theta()[1]) * x
 plt.plot(x, y)
 plt.scatter(x_test, y_test)
 plt.xlabel('Avg_Temp')
-plt.ylabel('Sum_Fall')
+plt.ylabel('Avg_Temp_Pre_Day')
 plt.show()
