@@ -6,8 +6,7 @@ from model import AutoReg
 
 data = get_data()
 
-train_data = data[:int(2/3*(len(data)))]
-test_data = data[int(2/3*(len(data))):]
+train_data, test_data = split_data_asc(data)
 
 x_train = train_data["Avg_Temp_Pre_Day"].to_numpy()
 y_train = train_data["Avg_Temp"].to_numpy()
