@@ -38,7 +38,7 @@ class Linear_reg:
 
 
 class AutoReg:
-    def __init__(self, lag=3):
+    def __init__(self, lag=7):
         self.lag = lag
         self.theta = np.array([0,0])
 
@@ -51,6 +51,7 @@ class AutoReg:
         return self.theta
 
 
+    # Every day has the same value to theta
     def fit(self, x_train, y_train):
         model = Linear_reg()
         model.fit(x_train, y_train)
@@ -67,17 +68,34 @@ class AutoReg:
         print(np.matmul(X.T, X))
         self.theta = np.dot(np.dot(np.linalg.inv(np.dot(x_mat.T, x_mat)), x_mat.T), y_mat)
         '''
-       
-        
+
+    # Closer day has the same value to theta
+    def fit_with_git(self, x_train, y_train, size = 7):
+        git = 1
+        theta = []
+        for i in range(size):
+            model = Linear_reg()
+            model.fit(x_train[-size:], y_train[-size:])
+            theta.append(model.get_theta() * git)
+            x_train = np.delete(x_train, len(x_train)-1)
+            git /= 2
+
+        theta_best = np.array([0,0])
+        for wsk in theta:
+            theta_best[0] += wsk[0]
+            theta_best[1] += wsk[1]
+        theta_best[0] /= 2
+        theta_best[1] /= 2
+        self.theta = theta_best
+
     
-    def predict(self, x_test):
-        # Dodaj kolumnę z jedynkami do danych testowych
-        x_test = np.column_stack((np.ones(len(x_test)), x_test))
-        
-        # Przygotuj macierz danych dla predykcji
-        
-        # Oblicz predykcję na podstawie wyestymowanych parametrów
-        y_pred = x_test.dot(self.theta)
-        
+    def predict(self, x_data, y_data):
+        y_pred = []
+        self.fit(x_train[-self.get_lag():], y_train[-self.get_lag():])
+        y_pred.append(self.get_theta()[0])
+        x_train = np.append(x_train, x_test_temp[0])
+        y_train = np.append(y_train, y_test_temp[0])
+        x_test_temp = np.delete(x_test_temp, 0)
+        y_test_temp = np.delete(y_test_temp, 0)
         return y_pred
     
