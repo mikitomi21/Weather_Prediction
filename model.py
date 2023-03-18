@@ -1,4 +1,5 @@
 import numpy as np
+from data import standardize
 
 class LinearReg:
     def __init__(self):
@@ -86,6 +87,21 @@ class AutoReg:
         theta_best[0] /= 2
         theta_best[1] /= 2
         self.theta = theta_best
+
+
+    #Test better solution
+    def fit_with_git2(self, x_train, y_train, lag = 7):
+        x_train = np.column_stack((np.ones(lag), x_train[-lag:]))
+        y_train = np.reshape(y_train[-lag:],(x_train.shape[0],1))
+        
+        theta = np.zeros((x_train.shape[1],1))
+        learning_rate = 0.01
+        num_iterations = 1000
+        for i in range(num_iterations):
+            theta -= learning_rate*2/len(x_train) * (np.dot(x_train.T, (np.dot(x_train,theta) - y_train)))  
+            
+        self.theta = theta
+
 
     
     def predict(self, x):

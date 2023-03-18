@@ -17,8 +17,26 @@ y_test = test_data["Avg_Temp"].to_numpy()
 linear = AutoReg(10)
 #print(linear.theta)
 
-# Testing normal fiting
+theta = linear.fit_with_git2(x_train, y_train, 7)
+print(theta)
 
+y_pred = []
+x_test_temp = x_test.copy()
+y_test_temp = y_test.copy()
+
+for i in range(366): 
+    linear.fit_with_git2(x_train, y_train)
+    y_pred.append(linear.predict(x_test_temp[0]))
+    x_train = np.append(x_train, x_test_temp[0])
+    y_train = np.append(y_train, y_test_temp[0])
+    x_test_temp = np.delete(x_test_temp, 0)
+    y_test_temp = np.delete(y_test_temp, 0)
+
+print("MSE: ", linear.mse(x_test, y_test, y_pred))
+print("MAE: ", linear.mae(x_test, y_test, y_pred))
+
+# Testing normal fiting
+'''
 y_pred = []
 x_test_temp = x_test.copy()
 y_test_temp = y_test.copy()
@@ -35,6 +53,8 @@ for i in range(366):
 print(linear)
 print("MSE: ", linear.mse(x_test, y_test, y_pred))
 print("MAE: ", linear.mae(x_test, y_test, y_pred))
+'''
+
 # Testing fiting with git
 '''
 y_pred = []
@@ -56,3 +76,4 @@ plt.plot(x, y_test)
 plt.plot(x, y_pred, color="red")
 plt.show()
 '''
+
