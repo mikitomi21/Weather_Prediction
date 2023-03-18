@@ -70,15 +70,14 @@ class AutoReg:
         '''
 
     # Closer day has the same value to theta
-    def fit_with_git(self, x_train, y_train, size = 7):
-        git = 1
+    def fit_with_git(self, x_train, y_train, size = 7, git = 1, scala=2):
         theta = []
         for i in range(size):
             model = LinearReg()
             model.fit(x_train[-size:], y_train[-size:])
             theta.append(model.get_theta() * git)
             x_train = np.delete(x_train, len(x_train)-1)
-            git /= 2
+            git /= scala
 
         theta_best = np.array([0,0])
         for wsk in theta:
