@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from data import *
-from model import Linear_reg
+from model import LinearReg
 
 data = get_data()
 
@@ -14,7 +14,7 @@ y_train = train_data["Avg_Temp"].to_numpy()
 x_test = test_data["Avg_Temp_Pre_Day"].to_numpy()
 y_test = test_data["Avg_Temp"].to_numpy()
 
-linear = Linear_reg()
+linear = LinearReg()
 linear.fit(x_train, y_train)
 print(linear)
 print(linear.mse(x_test, y_test))

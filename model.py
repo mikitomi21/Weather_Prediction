@@ -1,6 +1,6 @@
 import numpy as np
 
-class Linear_reg:
+class LinearReg:
     def __init__(self):
         #self.theta = [0, 0, 0]
         self.theta = np.array([0,0])
@@ -53,7 +53,7 @@ class AutoReg:
 
     # Every day has the same value to theta
     def fit(self, x_train, y_train):
-        model = Linear_reg()
+        model = LinearReg()
         model.fit(x_train, y_train)
         self.theta = model.get_theta()
         '''
@@ -74,7 +74,7 @@ class AutoReg:
         git = 1
         theta = []
         for i in range(size):
-            model = Linear_reg()
+            model = LinearReg()
             model.fit(x_train[-size:], y_train[-size:])
             theta.append(model.get_theta() * git)
             x_train = np.delete(x_train, len(x_train)-1)
@@ -89,13 +89,23 @@ class AutoReg:
         self.theta = theta_best
 
     
-    def predict(self, x_data, y_data):
-        y_pred = []
-        self.fit(x_train[-self.get_lag():], y_train[-self.get_lag():])
-        y_pred.append(self.get_theta()[0])
-        x_train = np.append(x_train, x_test_temp[0])
-        y_train = np.append(y_train, y_test_temp[0])
-        x_test_temp = np.delete(x_test_temp, 0)
-        y_test_temp = np.delete(y_test_temp, 0)
-        return y_pred
+    def predict(self, x):
+        return self.get_theta()[1]*x + self.get_theta()[0]
+    
+
+    def mse(self, x_test, y_test, y_pred):
+        sum = 0
+        lenght = len(x_test)
+        for i in range(lenght):
+            sum += pow((y_pred[i]-y_test[i]), 2)
+        return sum/lenght
+    
+    
+    def mae(self, x_test, y_test, y_pred):
+        sum = 0
+        lenght = len(x_test)
+        for i in range(lenght):
+            sum += abs(y_pred[i]-y_test[i])
+        return sum/lenght
+        
     
