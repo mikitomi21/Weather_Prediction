@@ -1,5 +1,14 @@
 import numpy as np
 
+def relu(x):
+        return max(0, x)
+    
+def sigmoid(x):
+    return 1/(1+np.exp(-x))
+    
+def sigmoid_derivative(x):
+    return x*(1-x)
+
 class NeuralNetwork:
     def __init__(self, x, y, n_neurons):
         self.input = x
@@ -9,8 +18,20 @@ class NeuralNetwork:
         self.output = np.zeros(np.shape(y)[0])
     
     def feed_forward(self):
-        self.label = np.maximum(0, np.dot(self.input, self.weight1))
-        self.output = np.maximum(0, np.dot(self.label, self.weight2))
+        self.layer = sigmoid(np.dot(self.input, self.weight1))
+        self.output = sigmoid(np.dot(self.layer, self.weight2))
+
+    def propra_back(self):
+        self.weight2 = np.dot(self.layer.T, (2*(self.y - self.output) * sigmoid_derivative(self.output)))
+        self.weight1 = np.dot(self.input.T,  (np.dot(2*(self.y - self.output) * sigmoid_derivative(self.output), self.weight2.T) * sigmoid_derivative(self.layer)))
+
+    def train(self, x, y):
+         self.input = X
+         self.y = y
+         self.output = self.feed_forward()
+         self.propra_back()
+
+
 
 X = np.array([1,2,3,4,5,6])
 X = np.reshape(X, (np.shape(X)[0], 1))
@@ -24,5 +45,11 @@ print(network.y)
 print(network.output)
 
 network.feed_forward()
-
+print("Wynik po nauczaniu")
 print(network.output)
+
+print("Wagi po powrocie")
+network.propra_back()
+
+print(network.weight1)
+print(network.weight2)
