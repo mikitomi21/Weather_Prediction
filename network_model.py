@@ -13,16 +13,16 @@ def derivative(x):
 class NeuralNetwork:
     def __init__(self, x, y, n_neurons):
         self.input = x
-        self.weight1 = np.random.rand(np.shape(self.input)[1], n_neurons)
-        self.weight2 = np.random.rand(n_neurons, 1)
+        self.weight1 = np.random.rand(np.shape(self.input)[1], n_neurons)/2
+        self.weight2 = np.random.rand(n_neurons, 1)/2
         self.biases = np.zeros((1, n_neurons))
         self.y = y
         self.output = np.zeros(np.shape(y)[0])
-        self.rate_learning = 0.01
+        self.rate_learning = 0.0001
     
     def feed_forward(self):
-        self.layer = sigmoid(np.dot(self.input, self.weight1) + self.biases)
-        self.output = sigmoid(np.dot(self.layer, self.weight2))
+        self.layer = relu(np.dot(self.input, self.weight1) + self.biases)
+        self.output = relu(np.dot(self.layer, self.weight2))
 
     def propra_back(self):
         output_error = (2*(self.y - self.output) * derivative(self.output))
@@ -30,7 +30,7 @@ class NeuralNetwork:
 
         self.weight2 += self.rate_learning * np.dot(self.layer.T, output_error)
         self.weight1 += self.rate_learning * np.dot(self.input.T,  layer_error)
-        self.biases += np.sum(layer_error, axis=0, keepdims=True)
+        self.biases += self.rate_learning * np.sum(layer_error, axis=0, keepdims=True)
 
     def train(self):
          self.feed_forward()
@@ -54,13 +54,16 @@ x_train = np.reshape(x_train, (np.shape(x_train)[0], 1))
 y_train = train_data["Avg_Temp"].to_numpy()
 y_train = np.reshape(y_train, (np.shape(y_train)[0], 1))
 
+x_train = standardize(x_train, x_train)
+y_train = standardize(y_train, y_train)
+
 x_test = test_data["Avg_Temp_Pre_Day"].to_numpy()
 y_test = test_data["Avg_Temp"].to_numpy()
-network = NeuralNetwork(x_train, y_train, 10)
+network = NeuralNetwork(x_train, y_train, 5)
 
-for i in range(len(x_train)):
+for i in range(500):
      #print(np.reshape(network.output, (1, np.shape(network.output)[0])))
-     network.train()
+    network.train()
 
 print(network.output)
 
