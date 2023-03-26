@@ -23,8 +23,12 @@ class NeuralNetwork:
         self.output = sigmoid(np.dot(self.layer, self.weight2))
 
     def propra_back(self):
-        self.weight2 += np.dot(self.layer.T, (2*(self.y - self.output) * derivative(self.output)))
-        self.weight1 += np.dot(self.input.T,  (np.dot(2*(self.y - self.output) * derivative(self.output), self.weight2.T) * derivative(self.layer)))
+        output_error = (2*(self.y - self.output) * derivative(self.output))
+        layer_error = np.dot(output_error, self.weight2.T) * derivative(self.layer)
+
+        self.weight2 += np.dot(self.layer.T, output_error)
+        self.weight1 += np.dot(self.input.T,  layer_error)
+        #self.biases += np.sum(layer_error, axis=0, keepdims=True)
 
     def train(self):
          self.feed_forward()
