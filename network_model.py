@@ -1,5 +1,6 @@
 import numpy as np
 from data import *
+import matplotlib.pyplot as plt
 
 def relu(x):
     return np.maximum(0, x)
@@ -61,13 +62,17 @@ y_train = standardize(y_train, y_train)
 
 x_test = test_data["Avg_Temp_Pre_Day"].to_numpy()
 y_test = test_data["Avg_Temp"].to_numpy()
-network = NeuralNetwork(x_train[0:7].T, y_train[7], 5)
+network = NeuralNetwork(x_train[0:7].T, y_train[7], 2)
 
 sum1 = 0
 sum2 = 0
-lenght = len(x_train) - 8
+lenght = 200
+y_output = []
+y_pred = []
 for i in range(lenght):
     network.train(x_train[i:i+7].T, y_train[i+7])
+    y_output.append(y_train[i+7])
+    y_pred.append(network.output[0])
     #print(f"\ni:{i}")
     #print(f"y:{network.y}")
     #print(f"output:{network.output}")
@@ -75,8 +80,13 @@ for i in range(lenght):
     sum2 += pow((network.output - network.y), 2)
 print(f"MSE: {sum2/lenght}")
 print(f"MAE: {sum1/lenght}")
-        
-
+   
+x = np.arange(lenght)
+plt.plot(x, y_output, 'b')
+plt.plot(x, y_pred, 'r')
+plt.xlabel('Avg_Temp_Pre_Day')
+plt.ylabel('Avg_Temp')
+plt.show()
 
 
 '''
