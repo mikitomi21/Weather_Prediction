@@ -32,9 +32,11 @@ class NeuralNetwork:
         self.weight1 += self.rate_learning * np.dot(self.input.T,  layer_error)
         self.biases += self.rate_learning * np.sum(layer_error, axis=0, keepdims=True)
 
-    def train(self):
-         self.feed_forward()
-         self.propra_back()
+    def train(self, x, y):
+        self.input = x
+        self.y = y
+        self.feed_forward()
+        self.propra_back()
 
 
 '''
@@ -59,13 +61,22 @@ y_train = standardize(y_train, y_train)
 
 x_test = test_data["Avg_Temp_Pre_Day"].to_numpy()
 y_test = test_data["Avg_Temp"].to_numpy()
-network = NeuralNetwork(x_train, y_train, 5)
+network = NeuralNetwork(x_train[0:7].T, y_train[7], 5)
 
-for i in range(500):
-     #print(np.reshape(network.output, (1, np.shape(network.output)[0])))
-    network.train()
+sum1 = 0
+sum2 = 0
+lenght = len(x_train) - 8
+for i in range(lenght):
+    network.train(x_train[i:i+7].T, y_train[i+7])
+    #print(f"\ni:{i}")
+    #print(f"y:{network.y}")
+    #print(f"output:{network.output}")
+    sum1 += (network.output - network.y)
+    sum2 += pow((network.output - network.y), 2)
+print(f"MSE: {sum2/lenght}")
+print(f"MAE: {sum1/lenght}")
+        
 
-print(network.output)
 
 
 '''
