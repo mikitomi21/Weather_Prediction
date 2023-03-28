@@ -14,11 +14,11 @@ def derivative(x):
 class NeuralNetwork:
     def __init__(self, x, y, n_neurons):
         self.input = x
-        self.weight1 = np.random.rand(np.shape(self.input)[1], n_neurons)/2
-        self.weight2 = np.random.rand(n_neurons, 1)/2
+        self.weight1 = np.random.rand(np.shape(self.input)[1], n_neurons)
+        self.weight2 = np.random.rand(n_neurons, 1)
         self.biases = np.zeros((1, n_neurons))
         self.y = y
-        self.output = np.zeros(np.shape(y)[0])
+        self.output = np.zeros((np.shape(y)[0],1))
         self.rate_learning = 0.0001
     
     def feed_forward(self):
@@ -51,7 +51,7 @@ y = np.reshape(y, (np.shape(y)[0], 1))
 data = get_data()
 
 train_data, test_data = split_data(data)
-
+train_data = get_data()
 x_train = train_data["Avg_Temp_Pre_Day"].to_numpy()
 x_train = np.reshape(x_train, (np.shape(x_train)[0], 1))
 y_train = train_data["Avg_Temp"].to_numpy()
@@ -66,7 +66,7 @@ network = NeuralNetwork(x_train[0:7].T, y_train[7], 2)
 
 sum1 = 0
 sum2 = 0
-lenght = 200
+lenght = len(x_train)-7
 y_output = []
 y_pred = []
 for i in range(lenght):
