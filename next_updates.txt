@@ -1,0 +1,2 @@
+linear predictive coding
+zrobic siec rekurencyjna lstm

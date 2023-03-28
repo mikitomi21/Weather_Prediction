@@ -1,2 +1,1 @@
-linear predictive coding
-zrobic siec rekurencyjna lstm
+Dodac dane z przynajmniej 30lat
