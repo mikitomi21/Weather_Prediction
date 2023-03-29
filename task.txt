@@ -1,10 +1,11 @@
-1. Dodac dane z przynajmniej 30lat ;nawet 50 lat
-2. Dodac kolejne cechy(suma opadów, rodzaj:
+1. Update README
+2. Dodac dane z przynajmniej 30lat ;nawet 50 lat
+3. Dodac kolejne cechy(suma opadów, rodzaj:
 001 -> brak opadow
 010 -> deszcz
 100 -> snieg)
     a) dla linear regresion
     b) dla neural network
-3. Sprawdzić czy propragation_back używać za każdym razem nauki, czy co 2^n gdzie n należy do Całkowitych
+4. Sprawdzić czy propragation_back używać za każdym razem nauki, czy co 2^n gdzie n należy do Całkowitych
 Oraz czy dla każdego neuronu osobno, czy dla wszystkich średnia
-4. Stworzyć sieć neuronową rekurencyjną
+5. Stworzyć sieć neuronową rekurencyjną
