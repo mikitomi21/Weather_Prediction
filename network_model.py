@@ -18,8 +18,8 @@ class NeuralNetwork:
         self.weight2 = np.random.rand(n_neurons, 1)
         self.biases = np.zeros((1, n_neurons))
         self.y = y
-        self.output = np.zeros((np.shape(y)[0],1))
-        self.rate_learning = 0.0001
+        self.output = np.zeros(np.shape(y)[0])
+        self.rate_learning = 0.00001
     
     def feed_forward(self):
         self.layer = relu(np.dot(self.input, self.weight1) + self.biases)
@@ -38,14 +38,6 @@ class NeuralNetwork:
         self.y = y
         self.feed_forward()
         self.propra_back()
-
-
-'''
-X = np.array([0.1,0.2,0.3,0.4,0.5,0.5,0.4,0.3,0.2,0.1])
-X = np.reshape(X, (np.shape(X)[0], 1))
-y = np.array([0.2,0.3,0.4,0.5,0.5,0.4,0.3,0.2,0.1,0])
-y = np.reshape(y, (np.shape(y)[0], 1))
-'''
 
 
 data = get_data()
@@ -76,8 +68,9 @@ for i in range(lenght):
     #print(f"\ni:{i}")
     #print(f"y:{network.y}")
     #print(f"output:{network.output}")
-    sum1 += (network.output - network.y)
-    sum2 += pow((network.output - network.y), 2)
+    if i > 600:
+        sum1 += (network.output - network.y)
+        sum2 += pow((network.output - network.y), 2)
 print(f"MSE: {sum2/lenght}")
 print(f"MAE: {sum1/lenght}")
    
@@ -87,25 +80,3 @@ plt.plot(x, y_pred, 'r')
 plt.xlabel('Avg_Temp_Pre_Day')
 plt.ylabel('Avg_Temp')
 plt.show()
-
-
-'''
-print(network.input)
-print(network.weight1)
-print(network.weight2)
-print(network.y)
-print(network.output)
-'''
-
-
-'''
-network.feed_forward()
-print("Wynik po nauczaniu")
-print(network.output)
-
-print("Wagi po powrocie")
-network.propra_back()
-
-print(network.weight1)
-print(network.weight2)
-'''
