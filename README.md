@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikitomi21/Weather_Prediction/blob/main/LICENSE)
 
-***Weather_Prediction*** is an set of AI models predicting temperature based on a number of factors given in the input file.
+***Weather_Prediction*** is a set of AI models predicting temperature based on a number of factors given in the input file.
 
 Examplary data included in this project was borrowed from **[imgw.pl](https://danepubliczne.imgw.pl)**
 
