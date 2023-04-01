@@ -39,6 +39,11 @@ class NeuralNetwork:
         self.feed_forward()
         self.propra_back()
     
+    def predict(self, x_test):
+        # assert 
+        self.input = x_test
+        self.feed_forward()
+    
     def mse(self, y_output, y_pred):
         mse = 0
         for i in range(len(y_output)):

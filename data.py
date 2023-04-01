@@ -21,3 +21,6 @@ def split_data_asc(dataset, frac_set=2/3):
 
 def standardize(data, data_train):
     return (data - np.average(data_train))/np.std(data_train)
+
+def unstandardize(data, data_train):
+    return data*np.std(data_train) + np.average(data_train)
