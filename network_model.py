@@ -14,8 +14,10 @@ def derivative(x):
 class NeuralNetwork:
     number_of_trains = 0
     teach_freq = 2
+    n_neurons = 0
     def __init__(self, x, y, n_neurons):
         self.input = x
+        self.n_neurons = n_neurons
 
         self.weight1 = np.random.rand(np.shape(self.input)[1], n_neurons)
         self.weight2 = np.random.rand(n_neurons, n_neurons)
@@ -30,7 +32,16 @@ class NeuralNetwork:
         self.rate_learning = 0.00000001
 
     
+    def masking(self):
+        if np.isfinite(self.weight1).all():
+            self.weight1 = np.random.rand(np.shape(self.input)[1], self.n_neurons)
+        if np.isfinite(self.weight2).all():
+            self.weight2 = np.random.rand(self.n_neurons, self.n_neurons)
+        if np.isfinite(self.weight3).all():
+            self.weight3 = np.random.rand(self.n_neurons, 1)
+
     def feed_forward(self):
+        self.masking()
         self.layer1 = np.dot(self.input, self.weight1) + self.biases1
         self.layer2 = np.dot(self.layer1, self.weight2) + self.biases2
         self.output = np.dot(self.layer2, self.weight3)
@@ -77,7 +88,6 @@ class NeuralNetwork:
 
 
 train_data = get_data()
-train_data = train_data[20:]
 
 x_train_org = train_data["Avg_Temp_Pre_Day"].to_numpy()
 x_train_org = np.reshape(x_train_org, (np.shape(x_train_org)[0], 1))
@@ -86,7 +96,7 @@ y_train_org = np.reshape(y_train_org, (np.shape(y_train_org)[0], 1))
 x_train = standardize(x_train_org, x_train_org)
 y_train = standardize(y_train_org, y_train_org)
 
-network = NeuralNetwork(x_train[0:7].T, y_train[7], 2)
+network = NeuralNetwork(x_train[0:7].T, y_train[7], 1)
 
 y_output = np.zeros(len(x_train)-7)
 y_pred = np.zeros(len(x_train)-7)
