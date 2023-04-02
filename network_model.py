@@ -41,7 +41,7 @@ class NeuralNetwork:
             self.weight3 = np.random.rand(self.n_neurons, 1)
 
     def feed_forward(self):
-        self.masking()
+        #self.masking()
         self.layer1 = np.dot(self.input, self.weight1) + self.biases1
         self.layer2 = np.dot(self.layer1, self.weight2) + self.biases2
         self.output = np.dot(self.layer2, self.weight3)
@@ -104,3 +104,5 @@ for i in range(len(x_train)-7):
     network.train(x_train[i:i+7].T, y_train[i+7])
     y_output[i] = y_train[i+7]
     y_pred[i] = network.output[0]
+    if i == 3000:
+        pass
