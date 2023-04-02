@@ -13,15 +13,15 @@ def derivative(x):
 
 class NeuralNetwork:
     number_of_trains = 0
-    teach_freq = 2
+    teach_freq = 5
     n_neurons = 0
     def __init__(self, x, y, n_neurons):
         self.input = x
         self.n_neurons = n_neurons
 
-        self.weight1 = np.random.rand(np.shape(self.input)[1], n_neurons)
-        self.weight2 = np.random.rand(n_neurons, n_neurons)
-        self.weight3 = np.random.rand(n_neurons, 1)
+        self.weight1 = np.random.rand(np.shape(self.input)[1], n_neurons) /8 + 0.25
+        self.weight2 = np.random.rand(n_neurons, n_neurons) /8 + 0.25
+        self.weight3 = np.random.rand(n_neurons, 1) /8 + 0.25
 
         self.biases1 = np.zeros((1, n_neurons))
         self.biases2 = np.zeros((1, n_neurons))
@@ -29,7 +29,7 @@ class NeuralNetwork:
         self.y = y
         self.output = np.zeros(np.shape(y)[0])
         
-        self.rate_learning = 0.00000001
+        self.rate_learning = 0.000001
 
     
     def masking(self):
