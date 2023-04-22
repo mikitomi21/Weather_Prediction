@@ -3,13 +3,13 @@ from data import *
 import matplotlib.pyplot as plt
 
 def relu(x):
-    return max(0,x)
+    return np.maximum(0,x)
     
 def sigmoid(x):
     return 1/(1+np.exp(-x))
     
 def derivative(x):
-    return x*(1-x)
+    return 1 - np.tanh(x)**2
 
 class NeuralNetwork:
     def __init__(self, x, y, n_neurons):
@@ -19,10 +19,10 @@ class NeuralNetwork:
         self.biases = np.zeros((1, n_neurons))
         self.y = y
         self.output = np.zeros(np.shape(y)[0])
-        self.rate_learning = 0.00001
+        self.rate_learning = 0.001
     
     def feed_forward(self):
-        self.layer = np.dot(self.input, self.weight1) + self.biases
+        self.layer = relu(np.dot(self.input, self.weight1) + self.biases)
         self.output = np.dot(self.layer, self.weight2)
 
     def propra_back(self):
