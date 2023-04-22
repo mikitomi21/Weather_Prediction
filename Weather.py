@@ -6,17 +6,14 @@ class KindOfFall:
     SNOW = 2
 
 class Weather:
-    def __init__(self, temp):
-        self.temp = temp
     
-    def __init__(self, temp, fall):
-        self.temp = temp
+    def __init__(self, temp_avg, temp_min=None, temp_max=None, fall=None, k_fall=None):
+        self.temp_avg = temp_avg
+        self.temp_min = temp_min
+        self.temp_max = temp_max
         self.fall = fall
-
-    def __init__(self, temp, fall, k_fall):
-        self.temp = temp
-        self.fall = fall
-        self.k_fall = self.get_k_fall(k_fall)
+        if k_fall.all() != None:
+            self.k_fall = self.get_k_fall(k_fall)
     
     def get_k_fall(self,k_fall):
         k_fall_temp = np.zeros(len(k_fall))
