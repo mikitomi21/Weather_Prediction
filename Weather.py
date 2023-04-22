@@ -1,9 +1,9 @@
 import numpy as np
 
 class KindOfFall:
-    SUNNY = 1
-    RAIN = 2
-    SNOW = 3
+    SUNNY = 0
+    RAIN = 1
+    SNOW = 2
 
 class Weather:
     def __init__(self, temp):

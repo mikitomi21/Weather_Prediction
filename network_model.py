@@ -19,10 +19,10 @@ class NeuralNetwork:
         self.biases = np.zeros((1, n_neurons))
         self.y = y
         self.output = np.zeros(np.shape(y)[0])
-        self.rate_learning = 0.001
+        self.rate_learning = 0.1
     
     def feed_forward(self):
-        self.layer = relu(np.dot(self.input, self.weight1) + self.biases)
+        self.layer = sigmoid(np.dot(self.input, self.weight1) + self.biases)
         self.output = np.dot(self.layer, self.weight2)
 
     def propra_back(self):
