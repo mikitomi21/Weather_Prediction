@@ -56,16 +56,17 @@ class Weather:
             weather.pressure.reshape(-1, 1),
         ), axis=1)
 
-def to_weather(town):
-    return Weather(
-        town["Avg_Temp"].to_numpy(),
-        town["Min_Temp"].to_numpy(),
-        town["Max_Temp"].to_numpy(),
-        town["Sum_Fall"].to_numpy(),
-        town["Kind_of_Fall"].to_numpy(),
-        town["Avg_Cloudiness"].to_numpy(),
-        town["Avg_Wind_Speed"].to_numpy(),
-        town["Avg_Humidity"].to_numpy(),
-        town["Avg_Atmo_Pressure"].to_numpy(),
-    )
+    @classmethod
+    def to_weather(cls, town):
+        return Weather(
+            town["Avg_Temp"].to_numpy(),
+            town["Min_Temp"].to_numpy(),
+            town["Max_Temp"].to_numpy(),
+            town["Sum_Fall"].to_numpy(),
+            town["Kind_of_Fall"].to_numpy(),
+            town["Avg_Cloudiness"].to_numpy(),
+            town["Avg_Wind_Speed"].to_numpy(),
+            town["Avg_Humidity"].to_numpy(),
+            town["Avg_Atmo_Pressure"].to_numpy(),
+        )
     
