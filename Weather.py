@@ -1,4 +1,5 @@
 import numpy as np
+from data import standardize
 
 class KindOfFall:
     SUNNY = 0
@@ -7,11 +8,15 @@ class KindOfFall:
 
 class Weather:
     
-    def __init__(self, temp_avg, temp_min=None, temp_max=None, fall=None, k_fall=None):
+    def __init__(self, temp_avg, temp_min=None, temp_max=None, fall=None, k_fall=None, cloudiness=None, wind_speed = None, humidity = None, pressure = None):
         self.temp_avg = temp_avg
         self.temp_min = temp_min
         self.temp_max = temp_max
         self.fall = fall
+        self.cloudiness = cloudiness
+        self.wind_speed = wind_speed
+        self.humidity = humidity
+        self.pressure = pressure
         if k_fall.all() != None:
             self.k_fall = self.get_k_fall(k_fall)
     
@@ -25,4 +30,28 @@ class Weather:
             else:
                 k_fall_temp[i] = KindOfFall.SUNNY
         return k_fall_temp
+    
+    def standardize(self):
+        self.temp_avg = standardize(self.temp_avg ,self.temp_avg)
+        self.temp_min = standardize(self.temp_avg ,self.temp_avg)
+        self.temp_max = standardize(self.temp_avg ,self.temp_avg)
+
+        self.cloudiness = standardize(self.cloudiness ,self.cloudiness)
+        self.wind_speed = standardize(self.wind_speed ,self.wind_speed)
+        self.humidity = standardize(self.humidity ,self.humidity)
+        self.pressure = standardize(self.pressure ,self.pressure)
+    
+
+def to_weather(town):
+    return Weather(
+        town["Avg_Temp"].to_numpy(),
+        town["Min_Temp"].to_numpy(),
+        town["Max_Temp"].to_numpy(),
+        town["Sum_Fall"].to_numpy(),
+        town["Kind_of_Fall"].to_numpy(),
+        town["Avg_Cloudiness"].to_numpy(),
+        town["Avg_Wind_Speed"].to_numpy(),
+        town["Avg_Humidity"].to_numpy(),
+        town["Avg_Atmo_Pressure"].to_numpy(),
+    )
     

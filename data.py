@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 
 #Test of uploading data
-def get_data():
-    dataset = pd.read_csv("result.csv", encoding = 'unicode_escape')
+def get_data(file = "result.csv"):
+    dataset = pd.read_csv(file, encoding = 'unicode_escape')
     return dataset
 
 
