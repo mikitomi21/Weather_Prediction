@@ -1,5 +1,6 @@
 import numpy as np
 from data import standardize
+import copy
 
 class KindOfFall:
     SUNNY = 0
@@ -41,6 +42,19 @@ class Weather:
         self.humidity = standardize(self.humidity ,self.humidity)
         self.pressure = standardize(self.pressure ,self.pressure)
     
+    def join_weather(self):
+        weather = copy.copy(self)
+        return np.concatenate((
+            weather.temp_avg.reshape(-1, 1),
+            weather.temp_min.reshape(-1, 1),
+            weather.temp_max.reshape(-1, 1),
+            weather.fall.reshape(-1, 1),
+            weather.k_fall.reshape(-1, 1),
+            weather.cloudiness.reshape(-1, 1),
+            weather.wind_speed.reshape(-1, 1),
+            weather.humidity.reshape(-1, 1),
+            weather.pressure.reshape(-1, 1),
+        ), axis=1)
 
 def to_weather(town):
     return Weather(
