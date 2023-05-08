@@ -7,16 +7,44 @@
 Examplary data included in this project was borrowed from **[imgw.pl](https://danepubliczne.imgw.pl)**
 
 Project currently contains linear and neural network models:
--   [**prenestation.ipynb**](https://github.com/mikitomi21/Weather_Prediction/blob/main/presentation.ipynb) contains linear models
--   [**pres_NeuralNetwork.ipynb**](https://github.com/mikitomi21/Weather_Prediction/blob/main/pres_NeuralNetwork.ipynb) contains neural network models
+-   [**pres_linear_models.ipynb**](https://github.com/mikitomi21/Weather_Prediction/blob/main/pres_linear_models.ipynb) contains linear models
+-   [**pres_neural_network.ipynb**](https://github.com/mikitomi21/Weather_Prediction/blob/main/pres_neural_network.ipynb) contains neural network model
 
-## Linear models
--   **Linear Regression**
--   **Linear Auto Regressive**
--   **Linear Auto Regressive with lag**
+# Models
+<h3>Linear:</h3>
+<ul>
+<li>Linear Regression</li>
+<li>Linear Auto Regressive</li>
+<li>Linear Auto Regressive with lag</li>
+</ul>
 
-## Neural Network models
--   **Feedforward artificial neural networks**
+<h3>Neural Network:</h3>
+<ul>
+<li>Feedforward artificial neural networks</li>
+</ul>
+
+## Description of dataset
+<b>Data from cities:</b>
+<ul>
+<li>GDANSK</li>
+<li>WARSZAWA</li>
+<li>BIELSKO-BIALA</li>
+<li>SZCZECIN</li>
+<li>WROCLAW</li>
+</ul>
+
+<b>Features used:</b>
+<ul>
+<li>Minimum Temperature</li>
+<li>Maximum Temperature</li>
+<li>Average Temperature</li>
+<li>Sum Of Falls</li>
+<li>Kind Of Falls</li>
+<li>Cloudiness</li>
+<li>Wind Speed</li>
+<li>Humidity</li>
+<li>Pressure</li>
+</ul>
 
 ## Inserting your own data
 <ol typ="1">
@@ -27,7 +55,7 @@ Project currently contains linear and neural network models:
 <li>Notice the content of file change after running the program. Graphs changed according to your input files. Voilà!</li>
 </ol>
 
-## Libraries used in this proejct
+## Libraries used in this project
 <ul>
 <li>statsmodels</li>
 <li>matplotlib</li>
