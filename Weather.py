@@ -33,9 +33,10 @@ class Weather:
         return k_fall_temp
     
     def standardize(self):
+    #     sum_of_temp = self.temp_avg + self.temp_min + self.temp_max
         self.temp_avg = standardize(self.temp_avg ,self.temp_avg)
-        self.temp_min = standardize(self.temp_avg ,self.temp_avg)
-        self.temp_max = standardize(self.temp_avg ,self.temp_avg)
+        self.temp_min = standardize(self.temp_min ,self.temp_avg)
+        self.temp_max = standardize(self.temp_max ,self.temp_avg)
 
         self.cloudiness = standardize(self.cloudiness ,self.cloudiness)
         self.wind_speed = standardize(self.wind_speed ,self.wind_speed)
