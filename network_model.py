@@ -6,7 +6,7 @@ def relu(x):
     return np.maximum(0,x)
     
 def sigmoid(x):
-    return 1/(2*(1+np.exp(-x)))
+    return 1/((1+np.exp(-x)))
 
 def derivative(x):
     return 1 - np.tanh(x)**2
@@ -19,7 +19,7 @@ class NeuralNetwork:
         self.biases = np.zeros((1, n_neurons))
         self.y = y
         self.output = np.array([0])
-        self.rate_learning = 0.1
+        self.rate_learning = 0.01
     
     def feed_forward(self):
         self.layer = sigmoid(np.dot(self.input, self.weight1) + self.biases)
