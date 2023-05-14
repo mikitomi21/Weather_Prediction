@@ -28,6 +28,7 @@ Project currently contains linear and neural network models:
 <ul>
 <li>GDANSK</li>
 <li>WARSZAWA</li>
+<li>BIALYSTOK</li>
 <li>BIELSKO-BIALA</li>
 <li>SZCZECIN</li>
 <li>WROCLAW</li>
